@@ -20,17 +20,16 @@ export default function Home() {
     const { did, url, name, callbackUrl, token } = value;
     setState({ did, url });
 
-    var data = {
+    const data = {
         "did": did,
         "name": name,
         "callbackUrl": callbackUrl,
         "token": token
-    };
-    
-    var formBody = [];
-    for (var property in data) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(data[property]);
+    };   
+    let formBody = [];
+    for (let property in data) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(data[property]);
       formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
@@ -46,7 +45,7 @@ export default function Home() {
     .then(res => { 
       console.log(res)
     })
-    .then(data => data)
+    .then(data => console.log(data))
     .catch(err => {
       console.error(err);
     });
@@ -163,18 +162,12 @@ export default function Home() {
                           fullWidth
                           id="token"
                           helperText={errors.token ? errors.token.message : null}
-                          label="Token (opcional)"
+                          label="Token"
                           errors={errors.token}
                         />
                       }
                       control={control}
                       defaultValue=""
-                      rules={{
-                        pattern: {
-                          value: /did:ethr:0x[0-9A-Fa-f]{40}/,
-                          message: 'Ingrese un DID valido'
-                        }
-                      }}
                     />
                   </Grid>
 
@@ -186,7 +179,7 @@ export default function Home() {
                           fullWidth
                           id="callbackUrl"
                           helperText={errors.callbackUrl ? errors.callbackUrl.message : null}
-                          label="Callback Url (opcional)"
+                          label="Callback Url"
                           errors={errors.callbackUrl}
                         />
                       }
